@@ -11,4 +11,8 @@ export class FountainService {
     this.fountains.push(new Fountain(1, "district1", "park", "street1", "good", "45.59201175", "-73.58946238"));  
     this.fountains.push(new Fountain(1, "district1", "park", "street1", "good", "46", "-73.59005505")); 
   }
+
+  private GetFountainsFromDatabase(): void {
+        
+  }
 }
