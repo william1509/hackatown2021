@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Loader } from "@googlemaps/js-api-loader"
 import {} from 'googlemaps';
 import { Fountain } from 'src/app/services/Fountain/fountain';
@@ -46,8 +46,9 @@ export class AppComponent implements OnInit {
           title: "Hello World!",
         });
         marker.addListener("click", () => {
-          this.dialog.open(FountainDisplayComponent
-        );
+          let dialogConfig = new MatDialogConfig();
+          dialogConfig.maxWidth = 100;
+          this.dialog.open(FountainDisplayComponent);
         this.markerInfo.push([marker, fountain]);
         });
       

@@ -1,21 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@700&display=swap');
-.flex{
+.row{
     display : flex;
-    justify-content: space-evenly;
-    width: auto;
-    height: auto;
+    justify-content: space-between;
 }
-.flex > div {
-    margin: 15px;
-}
+
 .displayTitle{
     font-family: 'Open Sans', sans-serif;
     color: teal;
-    font-size: 30px;
+    font-size: 25px;
 }
 .displayImage{
-    width: 150px;
-    height: 150px;
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
     object-fit: cover;
 }
@@ -24,13 +20,13 @@
     font-style : normal;
     font-weight : 400;
     color: teal;
-    font-size: 20px;
+    font-size: 18px;
 }
 .displayRatings{
     color: gray;
     font-size: 15px;
-    padding-left : 2em;
 }
-.displayCarlStars{
+.col {
+    display: inline;
 }
 
