@@ -11,7 +11,6 @@ import { Fountain } from 'src/app/services/Fountain/fountain';
 /* Inject data here. Import at line 3. */
 export class FountainDisplayComponent implements OnInit {
 
-  @Input() fountain: Fountain;
   fountainName : string;
   starRating : number;
   numberRatings : number;
