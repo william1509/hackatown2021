@@ -9,6 +9,8 @@ const loader = new Loader({
 
 let map: google.maps.Map;
 let marker: google.maps.Marker;
+
+
 const legend = document.getElementById("legend") as HTMLElement;
 
 function initMap(): void {
@@ -23,21 +25,24 @@ function initMap(): void {
 
 function addMarker(): void {
   loader.load().then(() => {
+    
     const myLatLng = { lat: -25.363, lng: 131.044 };
 
-  const map = new google.maps.Map(
-    document.getElementById("map") as HTMLElement,
-    {
-      zoom: 4,
-      center: myLatLng,
-    }
-  );
-
-  new google.maps.Marker({
-    position: myLatLng,
-    map,
-    title: "Hello World!",
-  });
+    const map = new google.maps.Map(
+      document.getElementById("map") as HTMLElement,
+      {
+        zoom: 4,
+        center: myLatLng,
+      }
+    );
+    marker = new google.maps.Marker({
+      position: myLatLng,
+      map,
+      title: "Hello World!",
+    });
+    marker.addListener("click", () => {
+      console.log("hehehehe");
+    })
   });
 }
 
