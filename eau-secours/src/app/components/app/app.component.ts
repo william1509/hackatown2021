@@ -38,8 +38,6 @@ function addMarker(): void {
     map,
     title: "Hello World!",
   });
-
-
   });
 }
 
