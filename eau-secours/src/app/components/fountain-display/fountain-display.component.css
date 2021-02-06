@@ -1,17 +1,37 @@
-.displaytitle{
-    position: fixed;
-
-
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@700&display=swap');
+.flex{
+    display : flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    width: auto;
+    height: 100vh;
 }
-.displayimage{
+.flex > div {
+    margin: 15px;
+}
+.displayTitle{
+    font-family: 'Open Sans', sans-serif;
+    color: teal;
+    font-size: 30px;
+}
+.displayImage{
     width: 175px;
     height: 175px;
     border-radius: 50%;
     object-fit: cover;
 }
-.displayratings{
-
+.displayScore{
+    font-family : 'Open Sans', sans-serif;
+    font-style : normal;
+    font-weight : 400;
+    color: teal;
+    font-size: 20px;
 }
-.displaybutton{
-
+.displayRatings{
+    color: gray;
+    font-size: 15px;
+    padding-left : 2em;
 }
+.displayCarlStars{
+}
+
