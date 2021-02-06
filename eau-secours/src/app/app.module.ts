@@ -15,7 +15,8 @@ import { FountainPopupComponent } from './components/fountain-popup/fountain-pop
   ],
   imports: [
     BrowserModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,8 +1,10 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Loader } from "@googlemaps/js-api-loader"
 import {} from 'googlemaps';
 import { Fountain } from 'src/app/services/Fountain/fountain';
 import { FountainService } from 'src/app/services/Fountain/fountain.service';
+import { FountainDisplayComponent } from '../fountain-display/fountain-display.component';
 
 const loader = new Loader({
   apiKey: "AIzaSyAfowCfopxwTeabNFPuv0av4Bwc0-az0r8",
@@ -17,14 +19,14 @@ const loader = new Loader({
 })
 export class AppComponent implements OnInit {
 
-  @ViewChild('legend') legend: ElementRef;
   @ViewChild('map') mapElement: ElementRef;
 
   private fountainService: FountainService;
   private map: google.maps.Map;
 
   private fountain_id: number;
-  private markerInfo: [google.maps.Marker, Fountain][];
+  public markerInfo: [google.maps.Marker, Fountain][];
+  constructor(public dialog: MatDialog) {}
 
   ngOnInit() {
     this.markerInfo = new Array<[google.maps.Marker, Fountain]>();
@@ -36,10 +38,6 @@ export class AppComponent implements OnInit {
 
   public addMarker(): void {
     loader.load().then(() => {
-      const infowindow = new google.maps.InfoWindow({
-        content: (this.legend.nativeElement as HTMLElement).outerHTML,
-      });
-    
       this.fountainService.fountains.forEach(fountain => {
         let marker = new google.maps.Marker({
           position: { 
@@ -48,12 +46,12 @@ export class AppComponent implements OnInit {
           title: "Hello World!",
         });
         marker.addListener("click", () => {
-          console.log(marker);
-          infowindow.open(this.map, marker);
-        });
+          this.dialog.open(FountainDisplayComponent
+        );
         this.markerInfo.push([marker, fountain]);
-      });
+        });
       
+      });
     });
   }
 
