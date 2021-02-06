@@ -1,0 +1,17 @@
+.displaytitle{
+    position: fixed;
+
+
+}
+.displayimage{
+    width: 175px;
+    height: 175px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.displayratings{
+
+}
+.displaybutton{
+
+}
