@@ -3,10 +3,12 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './components/app/app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FountainDisplayComponent } from './components/fountain-display/fountain-display.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    FountainDisplayComponent,
   ],
   imports: [
     BrowserModule,
