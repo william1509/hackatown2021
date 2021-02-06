@@ -1,0 +1,12 @@
+<div>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <span (click)="setRating(1)"><span *ngIf="rating > 0; else unchecked" class="fa fa-star checked"></span></span>
+    <span (click)="setRating(2)"><span *ngIf="rating > 1; else unchecked" class="fa fa-star checked"></span></span>
+    <span (click)="setRating(3)"><span *ngIf="rating > 2; else unchecked" class="fa fa-star checked"></span></span>
+    <span (click)="setRating(4)"><span *ngIf="rating > 3; else unchecked" class="fa fa-star checked"></span></span>
+    <span (click)="setRating(5)"><span *ngIf="rating > 4; else unchecked" class="fa fa-star checked"></span></span>
+    
+    <ng-template #unchecked>
+        <span class="fa fa-star"></span>
+    </ng-template>
+</div>
