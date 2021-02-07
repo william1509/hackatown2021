@@ -14,8 +14,6 @@ const loader = new Loader({
   version: "weekly",
 });
 
-
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -87,7 +85,7 @@ export class AppComponent implements OnInit {
         });
         this.markerInfo.push([marker, fountain]);
         marker.addListener("click", () => {
-          
+          this.fountainService.currentFoutain = fountain;
           const dialogRef = this.dialog.open(FountainDisplayComponent, {
             data: fountain
           });

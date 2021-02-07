@@ -8,8 +8,13 @@ import { Observable } from 'rxjs';
 })
 export class FountainService {
   public fountains: Fountain[];
-  private server: "https://localhost:3000"
+  private server: "https://localhost:3000";
+
+  public currentFoutain: Fountain;
+
   constructor(private http: HttpClient) { 
+    this.currentFoutain = {id: 0, district: "null", park: "null", landmark: "null", latitude: "0.0", longitude: "0.0",
+    numberRatings: 0, starRating: 0 };
     this.fountains = new Array<Fountain>();
     this.fountains.push({
       id: 1, district: "district1", park: "park", landmark: "street1", latitude: "45.59201175", longitude: "-73.58946238",
@@ -26,5 +31,10 @@ export class FountainService {
 
   public uploadPicture(uploadData: FormData): Observable<any> {
     return this.http.post(this.server + '/upload', uploadData)
+  }
+
+  public sendRating(rating: number) {
+    console.log(rating);
+    this.http.post(this.server + '/reviews', { id: this.currentFoutain.id, star: rating });
   }
 }
