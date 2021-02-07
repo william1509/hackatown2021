@@ -8,25 +8,21 @@ import { Observable } from 'rxjs';
 })
 export class FountainService {
   public fountains: Fountain[];
-  private server: "https://localhost:3000";
+  private server = "http://localhost:3000";
 
   public currentFoutain: Fountain;
 
   constructor(private http: HttpClient) { 
-    this.currentFoutain = {id: 0, district: "null", park: "null", landmark: "null", latitude: "0.0", longitude: "0.0",
-    numberRatings: 0, starRating: 0 };
+    this.currentFoutain = {id: 0, arrondissement: "null", parc: "null", repere: "null", latitude: "0.0", longitude: "0.0", rating: 1, ratingNumber: 1000};
     this.fountains = new Array<Fountain>();
     this.fountains.push({
-      id: 1, district: "district1", park: "park", landmark: "street1", latitude: "45.59201175", longitude: "-73.58946238",
-      numberRatings: 5000, starRating: 2
-    });  
+      id: 1, arrondissement: "district1", parc: "park", repere: "street1", latitude: "45.59201175", longitude: "-73.58946238", rating: 1, ratingNumber: 1000 });  
     this.fountains.push({
-      id: 2, district: "district1", park: "park", landmark: "coo, street lol", latitude: "46", longitude: "-73.59005505", 
-      numberRatings: 7500, starRating: 4}); 
+      id: 2, arrondissement: "district1", parc: "park", repere: "coo, street lol", latitude: "46", longitude: "-73.59005505", rating: 1, ratingNumber: 1000 }); 
   }
 
-  public getFountains(): void {
-    
+  public getFountains(): Promise<Fountain[]> {
+    return this.http.get<Fountain[]>(this.server + '/fountains').toPromise()
   }
 
   public uploadPicture(uploadData: FormData): Observable<any> {
@@ -34,7 +30,6 @@ export class FountainService {
   }
 
   public sendRating(rating: number) {
-    console.log(rating);
     this.http.post(this.server + '/reviews', { id: this.currentFoutain.id, star: rating });
   }
 }

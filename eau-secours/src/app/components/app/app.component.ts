@@ -43,7 +43,7 @@ export class AppComponent implements OnInit {
       this.directionsService = new google.maps.DirectionsService();
       this.map = new google.maps.Map(this.mapElement.nativeElement as HTMLElement, {
         center: { lat: 0, lng: 0 },
-        zoom: 8,
+        zoom: 16,
       })
       this.directionsRenderer.setMap(this.map);
 
@@ -67,23 +67,30 @@ export class AppComponent implements OnInit {
     });
   }
 
-  public addMarker(): void {
+  public async addMarker(): Promise<void> {
+    const fountains = await this.fountainService.getFountains();
+
     loader.load().then(() => {
-      this.fountainService.fountains.forEach(fountain => {
+      fountains.forEach(fountain => {
+
         let icon = {
           url : '/assets/fountain_marker.png',
           scaledSize: new google.maps.Size(70,50),
         }
+
         let position = { 
           lat: parseFloat(fountain.latitude), lng: parseFloat(fountain.longitude)
         };
+
         let marker = new google.maps.Marker({
           position: position,
           map: this.map,
           icon: icon,
           title: "Hello World!",
         });
+
         this.markerInfo.push([marker, fountain]);
+
         marker.addListener("click", () => {
           this.fountainService.currentFoutain = fountain;
           const dialogRef = this.dialog.open(FountainDisplayComponent, {
@@ -95,9 +102,11 @@ export class AppComponent implements OnInit {
             }
           })
         });
+
       });
     });
   }
+
   public StartRoute(foutain: Fountain): void {
     const destination = {
       lat: parseFloat(foutain.latitude),

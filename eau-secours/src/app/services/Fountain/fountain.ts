@@ -1,10 +1,10 @@
 export interface Fountain {
     id: number;
-    district: string;
-    park: string;
-    landmark: string;
+    arrondissement: string;
+    parc: string;
+    repere: string;
     latitude: string;
     longitude: string;
-    numberRatings: number;
-    starRating: number;
+    rating: number;
+    ratingNumber: number;
 }
