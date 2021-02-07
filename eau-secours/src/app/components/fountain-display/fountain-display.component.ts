@@ -39,8 +39,9 @@ export class FountainDisplayComponent implements OnInit {
   public setFountain() {
     this.fountainName = this.data.parc;
     this.fountainId = this.data.id;
-    this.starRating = this.data.rating;
-    this.numberRatings = this.data.ratingNumber;
+    
+    this.starRating = this.data.rating ? this.data.rating : 0;
+    this.numberRatings = this.data.ratingNumber ? this.data.ratingNumber : 0;
   }
 
   public setFountainPicture() {
