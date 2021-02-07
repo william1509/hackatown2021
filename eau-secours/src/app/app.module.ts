@@ -6,20 +6,20 @@ import { StarRating } from './components/star-rating/star-rating.component';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FountainDisplayComponent } from './components/fountain-display/fountain-display.component';
-import {MatDialogModule} from '@angular/material/dialog';
-import { FountainPopupComponent } from './components/fountain-popup/fountain-popup.component'; 
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
     AppComponent,
     FountainDisplayComponent,
-    FountainPopupComponent,
     StarRating
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    MatDialogModule
+    MatDialogModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
