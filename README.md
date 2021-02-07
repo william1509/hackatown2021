@@ -12,5 +12,5 @@ COMMENT UTILISER LE SITE EN LOCAL:
 6. Voilà!
 
 ALTERNATIVEMENT
-Démo en ligne du projet : https://wh847037.ispot.cc/
+Démo en ligne du projet : https://jaisoif.online/
 (L'autorisation de modifier le readme pour inclure le site après la remise a été donnée par @Guakamel#5501 sur Discord. Merci encore).
