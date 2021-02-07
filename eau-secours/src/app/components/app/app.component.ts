@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { Loader } from "@googlemaps/js-api-loader"
 import {} from 'googlemaps';
 import { Fountain } from 'src/app/services/Fountain/fountain';
@@ -10,6 +10,7 @@ const loader = new Loader({
   apiKey: "AIzaSyAfowCfopxwTeabNFPuv0av4Bwc0-az0r8",
   version: "weekly",
 });
+
 
 
 @Component({
@@ -73,24 +74,27 @@ export class AppComponent implements OnInit {
     loader.load().then(() => {
       this.directionsRenderer = new google.maps.DirectionsRenderer();
       this.directionsService = new google.maps.DirectionsService();
-      this.map = new google.maps.Map(this.mapElement.nativeElement, {
+      
+      this.map = new google.maps.Map(this.mapElement.nativeElement as HTMLElement, {
         center: { lat: 45.59201175, lng: -73.58946238 },
         zoom: 8,
       });
       this.directionsRenderer.setMap(this.map);
-
+      
     });
   }
 
   public StartRoute(dest: [number, number]): void {
+    
     loader.load().then(() => {
+      
     let request = 
     {
-      origin: 'Chicago, IL',
+      origin: { lat: 46, lng: -73.59 },
       destination: { lat: 45.59201175, lng: -73.58946238 },
-      travelMode: google.maps.TravelMode.DRIVING
+      travelMode: google.maps.TravelMode.WALKING
     };
-    this.directionsService.route(request, function(result, status) {
+    this.directionsService.route(request, (result, status) => {
       if (status == 'OK') {
         this.directionsRenderer.setDirections(result);
       }
