@@ -36,12 +36,10 @@ export class FountainDisplayComponent implements OnInit {
     this.numberRatings = 1000;
   }
 
-<<<<<<< HEAD
   public MakeRoute(): void {
     this.dialogRef.close({data: this.data});
   }
-
-=======
+  
   onFileChanged(event) {
     let selectedFile: File = event.target.files[0];
     this.uploadPic(selectedFile);
@@ -50,6 +48,5 @@ export class FountainDisplayComponent implements OnInit {
   uploadPic(file: File) {
     console.log(file);
   }
->>>>>>> fountain-upload-pic
 }
 
