@@ -26,13 +26,13 @@ export class AppComponent implements OnInit {
   private directionsService: google.maps.DirectionsService;
   private directionsRenderer: google.maps.DirectionsRenderer;
 
-  public markerInfo: [google.maps.Marker, Fountain][];
+  public markers: google.maps.Marker[];
 
 
   constructor(public dialog: MatDialog, private fountainService: FountainService) {}
 
   ngOnInit() {
-    this.markerInfo = new Array<[google.maps.Marker, Fountain]>();
+    this.markers = new Array<google.maps.Marker>();
     this.initMap();
     this.addMarker();
   }
@@ -89,13 +89,15 @@ export class AppComponent implements OnInit {
           title: "Hello World!",
         });
 
-        this.markerInfo.push([marker, fountain]);
-
+        
+        this.markers.push(marker);
         marker.addListener("click", () => {
           this.fountainService.currentFoutain = fountain;
           const dialogRef = this.dialog.open(FountainDisplayComponent, {
             data: fountain
           });
+        
+
           dialogRef.afterClosed().subscribe(result => {
             if(result) {
               this.StartRoute(result.data);
@@ -141,8 +143,20 @@ export class AppComponent implements OnInit {
           }
         )
       }
-
-    
   });
+  }
+
+  public FindNearestMarker(currentPosition: GeolocationPosition): void {
+    const pos = new google.maps.LatLng(currentPosition.coords.latitude, currentPosition.coords.longitude);
+    let bestMarker: google.maps.Marker;
+    let minimalDistance = Number.MAX_SAFE_INTEGER;
+    this.markers.forEach(marker => {
+      let distance = google.maps.geometry.spherical.computeDistanceBetween(pos, marker.getPosition());
+      if(distance < minimalDistance) {
+        minimalDistance = distance;
+        bestMarker = marker;
+      }
+    });
+    this.map.setCenter(new google.maps.LatLng(bestMarker.getPosition().lat(), bestMarker.getPosition().lng()));
   }
 }
