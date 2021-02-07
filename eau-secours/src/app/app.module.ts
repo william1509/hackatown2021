@@ -9,19 +9,23 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FountainDisplayComponent } from './components/fountain-display/fountain-display.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
+import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import {MatToolbarModule} from '@angular/material/toolbar'; 
 
 @NgModule({
   declarations: [
     AppComponent,
     FountainDisplayComponent,
-    StarRating
+    StarRating,
+    ToolbarComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     BrowserAnimationsModule,
     MatDialogModule,
-    MatButtonModule
+    MatButtonModule,
+    MatToolbarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
