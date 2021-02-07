@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject, Input } from '@angular/core';
 import { stringify } from 'querystring';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { inject } from '@angular/core/testing';
 import { Fountain } from 'src/app/services/Fountain/fountain';
 @Component({
@@ -15,14 +15,15 @@ export class FountainDisplayComponent implements OnInit {
   starRating : number;
   numberRatings : number;
   userStars : number;
-/*  constructor(@Inject(String)fountainName : string, @Inject(Number)starRating : number, @Inject(Number)numberRatings : number, @Inject(Number)userStars : number) {
-    this.fountainName = fountainName;
-    this.starRating = starRating;
-    this.numberRatings = numberRatings;
-    this.userStars = userStars;
-   }
-  */
+
+  constructor(
+    public dialogRef: MatDialogRef<FountainDisplayComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: [number, number]
+  ) {
+  }
   ngOnInit(): void {
+
+  
   }
 
   public setFountain(fountain: Fountain) {
@@ -30,6 +31,10 @@ export class FountainDisplayComponent implements OnInit {
     this.starRating = 5;
     this.userStars = 5;
     this.numberRatings = 1000;
+  }
+
+  public MakeRoute(): void {
+    this.dialogRef.close({data: this.data});
   }
 
 }

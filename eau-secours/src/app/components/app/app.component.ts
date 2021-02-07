@@ -23,9 +23,14 @@ export class AppComponent implements OnInit {
 
   private fountainService: FountainService;
   private map: google.maps.Map;
+  private directionsService: google.maps.DirectionsService;
+  private directionsRenderer: google.maps.DirectionsRenderer;
+
 
   private fountain_id: number;
   public markerInfo: [google.maps.Marker, Fountain][];
+
+
   constructor(public dialog: MatDialog) {}
 
   ngOnInit() {
@@ -39,18 +44,26 @@ export class AppComponent implements OnInit {
   public addMarker(): void {
     loader.load().then(() => {
       this.fountainService.fountains.forEach(fountain => {
+        let position = { 
+          lat: parseInt(fountain.latitude, 10), lng: parseInt(fountain.longitude, 10)
+        };
         let marker = new google.maps.Marker({
-          position: { 
-          lat: parseInt(fountain.latitude, 10), lng: parseInt(fountain.longitude, 10)},
+          position: position,
           map: this.map,
           title: "Hello World!",
         });
-        marker.addListener("click", () => {
-          let dialogConfig = new MatDialogConfig();
-          dialogConfig.maxWidth = 100;
-          this.dialog.open(FountainDisplayComponent);
         this.markerInfo.push([marker, fountain]);
+        marker.addListener("click", () => {
+          const dialogRef = this.dialog.open(FountainDisplayComponent, {
+            data: position
+          });
+          dialogRef.afterClosed().subscribe(result => {
+            if(result) {
+              this.StartRoute(result.data);
+            }
+          })
         });
+
       
       });
     });
@@ -58,10 +71,30 @@ export class AppComponent implements OnInit {
 
   public initMap(): void {
     loader.load().then(() => {
+      this.directionsRenderer = new google.maps.DirectionsRenderer();
+      this.directionsService = new google.maps.DirectionsService();
       this.map = new google.maps.Map(this.mapElement.nativeElement, {
         center: { lat: 45.59201175, lng: -73.58946238 },
         zoom: 8,
       });
+      this.directionsRenderer.setMap(this.map);
+
     });
+  }
+
+  public StartRoute(dest: [number, number]): void {
+    loader.load().then(() => {
+    let request = 
+    {
+      origin: 'Chicago, IL',
+      destination: { lat: 45.59201175, lng: -73.58946238 },
+      travelMode: google.maps.TravelMode.DRIVING
+    };
+    this.directionsService.route(request, function(result, status) {
+      if (status == 'OK') {
+        this.directionsRenderer.setDirections(result);
+      }
+    });
+  });
   }
 }
