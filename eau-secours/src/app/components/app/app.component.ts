@@ -51,7 +51,6 @@ export class AppComponent implements OnInit {
       this.directionsRenderer.setMap(this.map);
 
       if(navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function () {}, function () {}, {});
         navigator.geolocation.getCurrentPosition(
           (position: GeolocationPosition) => {
             const pos = {
@@ -96,24 +95,39 @@ export class AppComponent implements OnInit {
       });
     });
   }
-
-
-
   public StartRoute(dest: [number, number]): void {
     
     loader.load().then(() => {
-      
-    let request = 
-    {
-      origin: { lat: 46, lng: -73.59 },
-      destination: { lat: 45.59201175, lng: -73.58946238 },
-      travelMode: google.maps.TravelMode.WALKING
-    };
-    this.directionsService.route(request, (result, status) => {
-      if (status == 'OK') {
-        this.directionsRenderer.setDirections(result);
+    
+      if(navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position: GeolocationPosition) => {
+            const pos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            }
+            this.map.setCenter(pos);
+            let request = 
+            {
+              origin: { lat: 46, lng: -73.59 },
+              destination: { lat: 45.59201175, lng: -73.58946238 },
+              travelMode: google.maps.TravelMode.WALKING
+            };
+            this.directionsService.route(request, (result, status) => {
+              if (status == 'OK') {
+                this.directionsRenderer.setDirections(result);
+              }
+            });
+          },
+          () => {
+            console.log("Geolocation has failed");
+          }, {
+            enableHighAccuracy: true
+          }
+        )
       }
-    });
+
+    
   });
   }
 }
