@@ -4,14 +4,14 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { inject } from '@angular/core/testing';
 import { Fountain } from 'src/app/services/Fountain/fountain';
 import { HttpClient } from '@angular/common/http';
+import { FountainService } from 'src/app/services/Fountain/fountain.service';
 
 const pictureServer = "http://localhost:3000";
 
 @Component({
   selector: 'app-fountain-display',
   templateUrl: './fountain-display.component.html',
-  styleUrls: ['./fountain-display.component.css'],
-    providers: [HttpClient]
+  styleUrls: ['./fountain-display.component.css']
 })
 /* Inject data here. Import at line 3. */
 export class FountainDisplayComponent implements OnInit {
@@ -26,8 +26,8 @@ export class FountainDisplayComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<FountainDisplayComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Fountain,
-    private http: HttpClient
+    private fountainService: FountainService,
+    @Inject(MAT_DIALOG_DATA) public data: Fountain
   ) {
   }
 
@@ -37,7 +37,7 @@ export class FountainDisplayComponent implements OnInit {
   }
 
   public setFountain() {
-    this.fountainName = this.data.intersection;
+    this.fountainName = this.data.park;
     this.fountainId = this.data.id;
     this.starRating = this.data.starRating;
     this.numberRatings = this.data.numberRatings;
@@ -81,7 +81,7 @@ export class FountainDisplayComponent implements OnInit {
     
     const uploadData = new FormData();
     uploadData.append('picture', file, this.fountainId + ".png");
-    this.http.post(pictureServer + '/upload', uploadData)
+    this.fountainService.uploadPicture(uploadData)
       .subscribe(() => {
         this.setFountainPicture();
       });

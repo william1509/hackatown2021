@@ -1,4 +1,4 @@
-/// <reference types="@types/googlemaps" />'
+import {} from 'googlemaps';
 
 import { Position } from '@angular/compiler';
 
@@ -24,8 +24,6 @@ const loader = new Loader({
 export class AppComponent implements OnInit {
 
   @ViewChild('map') mapElement: ElementRef;
-
-  private fountainService: FountainService;
   private map: google.maps.Map;
   private directionsService: google.maps.DirectionsService;
   private directionsRenderer: google.maps.DirectionsRenderer;
@@ -33,11 +31,10 @@ export class AppComponent implements OnInit {
   public markerInfo: [google.maps.Marker, Fountain][];
 
 
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog, private fountainService: FountainService) {}
 
   ngOnInit() {
     this.markerInfo = new Array<[google.maps.Marker, Fountain]>();
-    this.fountainService = new FountainService();
     this.initMap();
     this.addMarker();
   }
