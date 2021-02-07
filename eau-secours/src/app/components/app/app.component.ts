@@ -1,3 +1,4 @@
+import { Position } from '@angular/compiler';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Loader } from "@googlemaps/js-api-loader"
@@ -27,8 +28,6 @@ export class AppComponent implements OnInit {
   private directionsService: google.maps.DirectionsService;
   private directionsRenderer: google.maps.DirectionsRenderer;
 
-
-  private fountain_id: number;
   public markerInfo: [google.maps.Marker, Fountain][];
 
 
@@ -36,10 +35,40 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.markerInfo = new Array<[google.maps.Marker, Fountain]>();
-    this.fountain_id = 0;
     this.fountainService = new FountainService();
     this.initMap();
     this.addMarker();
+  }
+
+  public initMap(): void {
+    loader.load().then(() => {
+      this.directionsRenderer = new google.maps.DirectionsRenderer();
+      this.directionsService = new google.maps.DirectionsService();
+      this.map = new google.maps.Map(this.mapElement.nativeElement as HTMLElement, {
+        center: { lat: 0, lng: 0 },
+        zoom: 8,
+      })
+      this.directionsRenderer.setMap(this.map);
+
+      if(navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function () {}, function () {}, {});
+        navigator.geolocation.getCurrentPosition(
+          (position: GeolocationPosition) => {
+            const pos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            }
+            this.map.setCenter(pos);
+            
+          },
+          () => {
+            console.log("Geolocation has failed");
+          }, {
+            enableHighAccuracy: true
+          }
+          )
+      }
+    });
   }
 
   public addMarker(): void {
@@ -64,25 +93,11 @@ export class AppComponent implements OnInit {
             }
           })
         });
-
-      
       });
     });
   }
 
-  public initMap(): void {
-    loader.load().then(() => {
-      this.directionsRenderer = new google.maps.DirectionsRenderer();
-      this.directionsService = new google.maps.DirectionsService();
-      
-      this.map = new google.maps.Map(this.mapElement.nativeElement as HTMLElement, {
-        center: { lat: 45.59201175, lng: -73.58946238 },
-        zoom: 8,
-      });
-      this.directionsRenderer.setMap(this.map);
-      
-    });
-  }
+
 
   public StartRoute(dest: [number, number]): void {
     
