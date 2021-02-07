@@ -107,6 +107,25 @@ app.post("/upload", function (req, res) {
     return req.pipe(busboy);   
 });
 
+app.post("reviews", function (req, res) {
+    var busboy = new Busboy({ headers: req.headers });
+    busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
+
+      var saveTo = path.join(__dirname, "fountainPictures/" + filename);
+      file.pipe(fs.createWriteStream(saveTo));
+    });
+
+    busboy.on('finish', function() {
+      res.writeHead(200, { "Connection": "close" });
+      res.end();
+    });
+
+    return req.pipe(busboy);   
+});
+
+
+
+
 app.listen(process.env.PORT || port, () => {
     console.log('Listening');
 });
