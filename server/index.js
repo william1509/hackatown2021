@@ -53,7 +53,29 @@ app.get("/fountains", function (req, res) {
             console.error('could not connect to cockroachdb', err);
             done();
         }
-        client.query('SELECT * FROM fountains;')
+        client.query( 'SELECT f.id, f.arrondissement, f.parc, f.repere, f.longitude, f.latitude, AVG(Rating) as rating, COUNT(Rating) as ratingNumber ' + 
+                      'FROM fountains as f LEFT JOIN reviews as r ON f.id = r.fountain ' + 
+                      'GROUP BY f.id;')
+            .then(result => {
+                res.send(result.rows);
+                done();
+            })
+            .catch(error => {
+                console.log(error.message);
+                //res.sendStatus(500).json({message: error.message});
+                done();
+            });
+    }); 
+});
+
+app.post("/reviews", function (req, res) {
+    pool.connect(function (err, client, done) {
+        if (err) {
+            console.error('could not connect to cockroachdb', err);
+            done();
+        }
+        client.query('INSERT INTO reviews (fountain, rating) VALUES ($1, $2);',
+            [req.body.fountain, req.body.rating])
             .then(result => {
                 res.send(result.rows);
                 done();
@@ -62,7 +84,7 @@ app.get("/fountains", function (req, res) {
                 res.sendStatus(500).json({message: error.message});
                 done();
             });
-    }); 
+    });
 });
 
 app.get("/fountainPictures/*", function (req, res) {
