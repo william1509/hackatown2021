@@ -10,3 +10,7 @@ COMMENT UTILISER LE SITE EN LOCAL:
 4. ng serve
 5. http://localhost:4200/
 6. Voilà!
+
+ALTERNATIVEMENT
+Démo en ligne du projet : https://wh847037.ispot.cc/
+(L'autorisation de modifier le readme pour inclure le site après la remise a été donnée par @Guakamel#5501 sur Discord. Merci encore).
