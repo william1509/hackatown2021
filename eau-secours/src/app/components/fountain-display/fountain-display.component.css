@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@700&display=swap');
+.row{
+    display : flex;
+    justify-content: space-between;
+}
+
+.displayTitle{
+    font-family: 'Open Sans', sans-serif;
+    color: teal;
+    font-size: 25px;
+}
+.displayImage{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.displayScore{
+    font-family : 'Open Sans', sans-serif;
+    font-style : normal;
+    font-weight : 400;
+    color: teal;
+    font-size: 18px;
+}
+.displayRatings{
+    color: gray;
+    font-size: 15px;
+}
+.col {
+    display: inline;
+    align-content: center;
+}
+
+.displayCarlStars {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.route {
+    width: 60px;
+    height: 60px;
+    background-image: url('/assets/route-icon.png');
+    background-size: contain;
+    border-radius: 30%;
+}
+

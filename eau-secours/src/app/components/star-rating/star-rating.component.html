@@ -1,0 +1,11 @@
+<div>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <button mat-icon-button *ngFor="let star of starArr; index as i" (click)="onClick(i)" [matTooltip]="i+1" matTooltipPosition="above">
+        <span *ngIf="isChecked(i); else unchecked" class="fa fa-star checked">
+        </span>
+    </button>
+</div>
+
+<ng-template #unchecked>
+    <span class="fa fa-star"></span>
+</ng-template>

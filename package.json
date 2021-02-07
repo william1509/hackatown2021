@@ -1,0 +1,20 @@
+{
+  "name": "hackatown2021",
+  "version": "1.0.0",
+  "description": "Règles :\r * Big brainz\r * Fun\r * Whatarwegonnado?",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/william1509/hackatown2021.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/william1509/hackatown2021/issues"
+  },
+  "homepage": "https://github.com/william1509/hackatown2021#readme"
+}
