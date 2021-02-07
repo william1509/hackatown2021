@@ -74,7 +74,7 @@ export class AppComponent implements OnInit {
     loader.load().then(() => {
       this.fountainService.fountains.forEach(fountain => {
         let position = { 
-          lat: parseInt(fountain.latitude, 10), lng: parseInt(fountain.longitude, 10)
+          lat: parseFloat(fountain.latitude), lng: parseFloat(fountain.longitude)
         };
         let marker = new google.maps.Marker({
           position: position,
@@ -84,7 +84,7 @@ export class AppComponent implements OnInit {
         this.markerInfo.push([marker, fountain]);
         marker.addListener("click", () => {
           const dialogRef = this.dialog.open(FountainDisplayComponent, {
-            data: position
+            data: [position.lat, position.lng]
           });
           dialogRef.afterClosed().subscribe(result => {
             if(result) {
@@ -96,7 +96,10 @@ export class AppComponent implements OnInit {
     });
   }
   public StartRoute(dest: [number, number]): void {
-    
+    const destination = {
+      lat: dest[0],
+      lng: dest[1]
+    }; 
     loader.load().then(() => {
     
       if(navigator.geolocation) {
@@ -110,7 +113,7 @@ export class AppComponent implements OnInit {
             let request = 
             {
               origin: { lat: pos.lat, lng: pos.lng },
-              destination: { lat: dest[0], lng: dest[1] },
+              destination: { lat: destination.lat, lng:destination.lng },
               travelMode: google.maps.TravelMode.WALKING
             };
             this.directionsService.route(request, (result, status) => {

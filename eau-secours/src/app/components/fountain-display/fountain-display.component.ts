@@ -20,6 +20,7 @@ export class FountainDisplayComponent implements OnInit {
     public dialogRef: MatDialogRef<FountainDisplayComponent>,
     @Inject(MAT_DIALOG_DATA) public data: [number, number]
   ) {
+    this.data[0];
   }
   ngOnInit(): void {
 
