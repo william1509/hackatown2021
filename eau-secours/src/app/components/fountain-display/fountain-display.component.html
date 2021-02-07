@@ -1,8 +1,11 @@
 <div class="col">
     <div class = "row">
         <div>
-            <input style="display: none" type="file" (change)="onFileChanged($event)" #fileInput>
-            <img src ={{fountainPicture}}  alt = imageplaceholder class = "displayImage" (click)="fileInput.click()">
+          <input style="display: none" type="file" (change)="onFileChanged($event)" #fileInput>
+          <img *ngIf="!hasFountainPicture; else noclick" src={{fountainPicture}}  alt = imageplaceholder class = "displayImage clickable" (click)="fileInput.click()">
+          <ng-template #noclick>
+            <img src={{fountainPicture}}  alt = imageplaceholder class = "displayImage">
+          </ng-template>
         </div>
         <div class="info">
             <div>

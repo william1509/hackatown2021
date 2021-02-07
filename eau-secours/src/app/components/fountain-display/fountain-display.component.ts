@@ -3,37 +3,62 @@ import { stringify } from 'querystring';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { inject } from '@angular/core/testing';
 import { Fountain } from 'src/app/services/Fountain/fountain';
+import { HttpClient } from '@angular/common/http';
+
+const pictureServer = "http://localhost:3000";
+
 @Component({
   selector: 'app-fountain-display',
   templateUrl: './fountain-display.component.html',
-  styleUrls: ['./fountain-display.component.css']
+  styleUrls: ['./fountain-display.component.css'],
+    providers: [HttpClient]
 })
 /* Inject data here. Import at line 3. */
 export class FountainDisplayComponent implements OnInit {
-
   fountainName : string;
+  fountainId: number;
   starRating : number;
   numberRatings : number;
   userStars : number;
 
-  fountainPicture: string;
+  hasFountainPicture: boolean = false;
+  fountainPicture: string = "assets/placeholder.png";
 
   constructor(
     public dialogRef: MatDialogRef<FountainDisplayComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: Fountain
+    @Inject(MAT_DIALOG_DATA) public data: Fountain,
+    private http: HttpClient
   ) {
   }
 
   ngOnInit(): void {
-    this.fountainPicture = 'assets/placeholder.png';
     this.setFountain();
+    this.setFountainPicture();
   }
 
   public setFountain() {
     this.fountainName = this.data.intersection;
+    this.fountainId = this.data.id;
     this.starRating = this.data.starRating;
     this.numberRatings = this.data.numberRatings;
   }
+
+  public setFountainPicture() {
+       let url = pictureServer + "/fountainPictures/" + this.fountainId + ".png";
+       let img = new Image();
+       img.src = url;
+       
+       // Hack to detect if image exists
+       img.addEventListener("load", () => {
+           if(img.height != 0) {
+               this.hasFountainPicture = true;
+               this.fountainPicture = url;console.log(url);
+           } else {
+               this.hasFountainPicture = false;
+           }
+       });
+  }
+
 
   public OpenDialog() {
 
@@ -43,13 +68,23 @@ export class FountainDisplayComponent implements OnInit {
     this.dialogRef.close({data: this.data});
   }
   
-  onFileChanged(event) {
+  public onFileChanged(event) {
     let selectedFile: File = event.target.files[0];
     this.uploadPic(selectedFile);
   }
 
-  uploadPic(file: File) {
-    console.log(file);
+  public uploadPic(file: File) {
+    if(file.type != "image/png") {
+        alert("Error! Must be a .png file.");
+        return false;
+    }
+    
+    const uploadData = new FormData();
+    uploadData.append('picture', file, this.fountainId + ".png");
+    this.http.post(pictureServer + '/upload', uploadData)
+      .subscribe(() => {
+        this.setFountainPicture();
+      });
   }
 }
 

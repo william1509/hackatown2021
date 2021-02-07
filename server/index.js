@@ -2,6 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const fs = require('fs');
 const pg = require('pg');
+const path = require('path');
+const Busboy = require('busboy');
 
 
 const app = express();
@@ -63,6 +65,26 @@ app.get("/fountains", function (req, res) {
     }); 
 });
 
+app.get("/fountainPictures/*", function (req, res) {
+    res.sendFile(__dirname + req.originalUrl);
+});
+
+app.post("/upload", function (req, res) {
+    var busboy = new Busboy({ headers: req.headers });
+    busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
+
+      var saveTo = path.join(__dirname, "fountainPictures/" + filename);
+      file.pipe(fs.createWriteStream(saveTo));
+    });
+
+    busboy.on('finish', function() {
+      res.writeHead(200, { "Connection": "close" });
+      res.end();
+    });
+
+    return req.pipe(busboy);   
+});
+
 app.listen(process.env.PORT || port, () => {
-    console.log(`Listening`);
+    console.log('Listening');
 });
