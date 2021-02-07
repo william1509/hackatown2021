@@ -69,9 +69,10 @@ export class AppComponent implements OnInit {
     });
   }
 
-  public addMarker(): void {
+  public async addMarker(): Promise<void> {
+    const fountains = await this.fountainService.getFountains();
     loader.load().then(() => {
-      this.fountainService.fountains.forEach(fountain => {
+      fountains.forEach(fountain => {
         let icon = {
           url : '/assets/fountain_marker.png',
           scaledSize: new google.maps.Size(70,50),

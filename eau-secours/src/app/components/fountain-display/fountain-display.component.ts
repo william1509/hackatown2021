@@ -37,10 +37,10 @@ export class FountainDisplayComponent implements OnInit {
   }
 
   public setFountain() {
-    this.fountainName = this.data.park;
+    this.fountainName = this.data.parc;
     this.fountainId = this.data.id;
-    this.starRating = this.data.starRating;
-    this.numberRatings = this.data.numberRatings;
+    this.starRating = 5;
+    this.numberRatings = 10;
   }
 
   public setFountainPicture() {
