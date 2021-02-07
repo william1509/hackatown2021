@@ -39,10 +39,15 @@ export class AppComponent implements OnInit {
   public addMarker(): void {
     loader.load().then(() => {
       this.fountainService.fountains.forEach(fountain => {
+        let icon = {
+          url : '/assets/fountain_marker.png',
+          scaledSize: new google.maps.Size(70,50),
+        };
         let marker = new google.maps.Marker({
           position: { 
           lat: parseInt(fountain.latitude, 10), lng: parseInt(fountain.longitude, 10)},
           map: this.map,
+          icon: icon,
           title: "Hello World!",
         });
         marker.addListener("click", () => {

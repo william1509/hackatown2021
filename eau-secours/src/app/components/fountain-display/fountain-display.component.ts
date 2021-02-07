@@ -10,11 +10,11 @@ import { Fountain } from 'src/app/services/Fountain/fountain';
 })
 /* Inject data here. Import at line 3. */
 export class FountainDisplayComponent implements OnInit {
-
   fountainName : string;
   starRating : number;
   numberRatings : number;
   userStars : number;
+  fountainPicture : string;
 /*  constructor(@Inject(String)fountainName : string, @Inject(Number)starRating : number, @Inject(Number)numberRatings : number, @Inject(Number)userStars : number) {
     this.fountainName = fountainName;
     this.starRating = starRating;
@@ -23,6 +23,7 @@ export class FountainDisplayComponent implements OnInit {
    }
   */
   ngOnInit(): void {
+    this.fountainPicture = 'assets/placeholder.png';
   }
 
   public setFountain(fountain: Fountain) {
