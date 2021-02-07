@@ -6,7 +6,7 @@ import { Fountain } from 'src/app/services/Fountain/fountain';
 import { HttpClient } from '@angular/common/http';
 import { FountainService } from 'src/app/services/Fountain/fountain.service';
 
-const pictureServer = "https://jai-soif.herokuapp.com";
+const pictureServer = "http://jai-soif.herokuapp.com";
 
 @Component({
   selector: 'app-fountain-display',
@@ -37,10 +37,19 @@ export class FountainDisplayComponent implements OnInit {
   }
 
   public setFountain() {
+    
     this.fountainName = this.data.parc;
     this.fountainId = this.data.id;
-    this.starRating = this.data.rating;
-    this.numberRatings = this.data.ratingNumber;
+    if(!this.data.rating) {
+      this.starRating = 3;
+    } else {
+      this.starRating = this.data.rating;
+    }
+    if(!this.data.ratingNumber) {
+      this.numberRatings = 0
+    } else {
+      this.numberRatings = this.data.ratingNumber;
+    }
   }
 
   public setFountainPicture() {
