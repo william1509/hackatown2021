@@ -109,8 +109,8 @@ export class AppComponent implements OnInit {
             this.map.setCenter(pos);
             let request = 
             {
-              origin: { lat: 46, lng: -73.59 },
-              destination: { lat: 45.59201175, lng: -73.58946238 },
+              origin: { lat: pos.lat, lng: pos.lng },
+              destination: { lat: dest[0], lng: dest[1] },
               travelMode: google.maps.TravelMode.WALKING
             };
             this.directionsService.route(request, (result, status) => {
