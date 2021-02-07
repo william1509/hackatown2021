@@ -10,7 +10,7 @@ import { FountainService } from 'src/app/services/Fountain/fountain.service';
 import { FountainDisplayComponent } from '../fountain-display/fountain-display.component';
 import { ToolbarComponent } from '../toolbar/toolbar.component';
 const loader = new Loader({
-  apiKey: "AIzaSyAfowCfopxwTeabNFPuv0av4Bwc0-az0r8",
+  apiKey: "YOUR API KEY HERE",
   version: "weekly",
 });
 
