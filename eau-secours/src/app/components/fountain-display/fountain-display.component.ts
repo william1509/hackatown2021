@@ -15,6 +15,7 @@ export class FountainDisplayComponent implements OnInit {
   starRating : number;
   numberRatings : number;
   userStars : number;
+  
 /*  constructor(@Inject(String)fountainName : string, @Inject(Number)starRating : number, @Inject(Number)numberRatings : number, @Inject(Number)userStars : number) {
     this.fountainName = fountainName;
     this.starRating = starRating;
@@ -32,4 +33,13 @@ export class FountainDisplayComponent implements OnInit {
     this.numberRatings = 1000;
   }
 
+  onFileChanged(event) {
+    let selectedFile: File = event.target.files[0];
+    this.uploadPic(selectedFile);
+  }
+
+  uploadPic(file: File) {
+    console.log(file);
+  }
 }
+

@@ -1,4 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@700&display=swap');
+
+img {
+    cursor: pointer;
+}
+
 .row{
     display : flex;
     justify-content: space-between;
