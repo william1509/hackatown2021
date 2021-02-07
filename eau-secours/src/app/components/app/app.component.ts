@@ -88,8 +88,9 @@ export class AppComponent implements OnInit {
         });
         this.markerInfo.push([marker, fountain]);
         marker.addListener("click", () => {
+          
           const dialogRef = this.dialog.open(FountainDisplayComponent, {
-            data: [position.lat, position.lng]
+            data: fountain
           });
           dialogRef.afterClosed().subscribe(result => {
             if(result) {
@@ -100,10 +101,10 @@ export class AppComponent implements OnInit {
       });
     });
   }
-  public StartRoute(dest: [number, number]): void {
+  public StartRoute(foutain: Fountain): void {
     const destination = {
-      lat: dest[0],
-      lng: dest[1]
+      lat: parseFloat(foutain.latitude),
+      lng: parseFloat(foutain.longitude)
     }; 
     loader.load().then(() => {
     

@@ -10,28 +10,31 @@ import { Fountain } from 'src/app/services/Fountain/fountain';
 })
 /* Inject data here. Import at line 3. */
 export class FountainDisplayComponent implements OnInit {
+
   fountainName : string;
   starRating : number;
   numberRatings : number;
   userStars : number;
-  fountainPicture : string;
+  fountainPicture: string;
 
   constructor(
     public dialogRef: MatDialogRef<FountainDisplayComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: [number, number]
+    @Inject(MAT_DIALOG_DATA) public data: Fountain
   ) {
-    this.data[0];
   }
   ngOnInit(): void {
-    this.fountainPicture = 'assets/placeholder.png'
-  
+    this.fountainPicture = 'assets/placeholder.png';
+    this.setFountain();
   }
 
-  public setFountain(fountain: Fountain) {
-    this.fountainName = fountain.intersection;
-    this.starRating = 5;
-    this.userStars = 5;
-    this.numberRatings = 1000;
+  public setFountain() {
+    this.fountainName = this.data.intersection;
+    this.starRating = this.data.starRating;
+    this.numberRatings = this.data.numberRatings;
+  }
+
+  public OpenDialog() {
+
   }
 
   public MakeRoute(): void {
