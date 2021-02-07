@@ -5,4 +5,6 @@ export interface Fountain {
     repere: string;
     latitude: string;
     longitude: string;
+    rating: number;
+    ratingNumber: number;
 }

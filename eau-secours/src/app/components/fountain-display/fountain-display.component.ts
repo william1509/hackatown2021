@@ -39,8 +39,8 @@ export class FountainDisplayComponent implements OnInit {
   public setFountain() {
     this.fountainName = this.data.parc;
     this.fountainId = this.data.id;
-    this.starRating = 5;
-    this.numberRatings = 10;
+    this.starRating = this.data.rating;
+    this.numberRatings = this.data.ratingNumber;
   }
 
   public setFountainPicture() {
@@ -58,8 +58,6 @@ export class FountainDisplayComponent implements OnInit {
            }
        });
   }
-
-
   public OpenDialog() {
 
   }
