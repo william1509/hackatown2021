@@ -1,7 +1,8 @@
 <div class="col">
     <div class = "row">
         <div>
-            <img src ={{fountainPicture}}  alt = imageplaceholder class = "displayImage">
+            <input style="display: none" type="file" (change)="onFileChanged($event)" #fileInput>
+            <img src ={{fountainPicture}}  alt = imageplaceholder class = "displayImage" (click)="fileInput.click()">
         </div>
         <div class="info">
             <div>

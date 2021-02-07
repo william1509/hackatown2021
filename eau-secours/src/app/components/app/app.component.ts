@@ -1,8 +1,8 @@
 import { Position } from '@angular/compiler';
+
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Loader } from "@googlemaps/js-api-loader"
-import {} from 'googlemaps';
 import { Fountain } from 'src/app/services/Fountain/fountain';
 import { FountainService } from 'src/app/services/Fountain/fountain.service';
 import { FountainDisplayComponent } from '../fountain-display/fountain-display.component';
