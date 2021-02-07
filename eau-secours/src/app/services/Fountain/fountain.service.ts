@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class FountainService {
   public fountains: Fountain[];
-  private server = "http://localhost:3000";
+  private server = "https://jai-soif.herokuapp.com";
 
   public currentFoutain: Fountain;
 

@@ -146,17 +146,32 @@ export class AppComponent implements OnInit {
   });
   }
 
-  public FindNearestMarker(currentPosition: GeolocationPosition): void {
-    const pos = new google.maps.LatLng(currentPosition.coords.latitude, currentPosition.coords.longitude);
-    let bestMarker: google.maps.Marker;
-    let minimalDistance = Number.MAX_SAFE_INTEGER;
-    this.markers.forEach(marker => {
-      let distance = google.maps.geometry.spherical.computeDistanceBetween(pos, marker.getPosition());
-      if(distance < minimalDistance) {
-        minimalDistance = distance;
-        bestMarker = marker;
-      }
-    });
-    this.map.setCenter(new google.maps.LatLng(bestMarker.getPosition().lat(), bestMarker.getPosition().lng()));
+  public FindNearestMarker(): void {
+    if(navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position: GeolocationPosition) => {
+          const pos = new google.maps.LatLng(
+            position.coords.latitude, position.coords.longitude
+          );
+          let bestMarker: google.maps.Marker;
+          let minimalDistance = Number.MAX_SAFE_INTEGER;
+          this.markers.forEach(marker => {
+            let distance = google.maps.geometry.spherical.computeDistanceBetween(pos, marker.getPosition());
+            if(distance < minimalDistance) {
+              minimalDistance = distance;
+              bestMarker = marker;
+            }
+          });
+          this.map.setCenter(new google.maps.LatLng(bestMarker.getPosition().lat(), bestMarker.getPosition().lng()));
+          
+        },
+        () => {
+          console.log("Geolocation has failed");
+        }, {
+          enableHighAccuracy: true
+        }
+        )
+    }
+    
   }
 }

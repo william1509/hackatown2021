@@ -6,7 +6,7 @@ import { Fountain } from 'src/app/services/Fountain/fountain';
 import { HttpClient } from '@angular/common/http';
 import { FountainService } from 'src/app/services/Fountain/fountain.service';
 
-const pictureServer = "http://localhost:3000";
+const pictureServer = "https://jai-soif.herokuapp.com";
 
 @Component({
   selector: 'app-fountain-display',
