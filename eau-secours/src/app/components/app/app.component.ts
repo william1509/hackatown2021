@@ -1,5 +1,3 @@
-/// <reference types="@types/googlemaps" />'
-
 import { Position } from '@angular/compiler';
 
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
